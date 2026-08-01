@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConferenceRoomBooking.Domain.Entities
 {
-    // Represents a service selected for a specific booking and stores its price at the time of booking
+    // Represents a service selected for a specific booking
+    // and stores its price at the time of booking
     public class BookingService
     {
         public int BookingId { get; set; }
