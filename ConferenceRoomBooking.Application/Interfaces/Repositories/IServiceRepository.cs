@@ -18,5 +18,7 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
         Task<Service?> GetByIdAsync(
             int id,
             CancellationToken ct = default);
+
+        void Remove(Service service);
     }
 }

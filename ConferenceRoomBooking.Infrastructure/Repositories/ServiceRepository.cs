@@ -43,5 +43,10 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
                     service => service.Id == id,
                     ct);
         }
+
+        public void Remove(Service service)
+        {
+            _context.Services.Remove(service);
+        }
     }
 }

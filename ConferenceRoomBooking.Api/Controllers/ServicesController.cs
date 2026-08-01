@@ -41,5 +41,20 @@ namespace ConferenceRoomBooking.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(
+            int id,
+            CancellationToken ct)
+        {
+            var deleted = await _service.DeleteAsync(id, ct);
+
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }

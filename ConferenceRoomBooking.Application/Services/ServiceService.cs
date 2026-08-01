@@ -38,7 +38,7 @@ namespace ConferenceRoomBooking.Application.Services
             await _repository.SaveChangesAsync(ct);
 
             return service.Id;
-        }
+        }        
 
         public async Task<bool> UpdateAsync(
             int id, 
@@ -71,6 +71,24 @@ namespace ConferenceRoomBooking.Application.Services
             await _repository.SaveChangesAsync(ct);
 
             return true;            
+        }
+
+        public async Task<bool> DeleteAsync(
+            int id, 
+            CancellationToken ct = default)
+        {
+            var service = await _repository.GetByIdAsync(id, ct);
+
+            if (service is null)
+            {
+                return false;
+            }
+
+            _repository.Remove(service);
+
+            await _repository.SaveChangesAsync(ct);
+
+            return true;
         }
     }
 }
