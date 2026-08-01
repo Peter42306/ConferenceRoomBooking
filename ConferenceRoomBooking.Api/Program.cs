@@ -1,3 +1,4 @@
+using ConferenceRoomBooking.Api.ExceptionHandling;
 using ConferenceRoomBooking.Application;
 using ConferenceRoomBooking.Infrastructure;
 
@@ -19,6 +20,9 @@ namespace ConferenceRoomBooking.Api
             builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);
 
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            builder.Services.AddProblemDetails();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,6 +31,8 @@ namespace ConferenceRoomBooking.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseExceptionHandler();
 
             app.UseHttpsRedirection();
 
