@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConferenceRoomBooking.Domain.Entities
+﻿namespace ConferenceRoomBooking.Domain.Entities
 {
     public class Service
     {

@@ -1,13 +1,9 @@
-﻿using ConferenceRoomBooking.Infrastructure.Data;
+﻿using ConferenceRoomBooking.Application.Interfaces.Repositories;
+using ConferenceRoomBooking.Infrastructure.Data;
+using ConferenceRoomBooking.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConferenceRoomBooking.Infrastructure
 {
@@ -23,6 +19,8 @@ namespace ConferenceRoomBooking.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
+
+            services.AddScoped<IServiceRepository, ServiceRepository>();
 
             return services;
         }

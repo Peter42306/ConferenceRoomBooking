@@ -1,3 +1,4 @@
+using ConferenceRoomBooking.Application;
 using ConferenceRoomBooking.Infrastructure;
 
 namespace ConferenceRoomBooking.Api
@@ -15,6 +16,7 @@ namespace ConferenceRoomBooking.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);
 
             var app = builder.Build();
