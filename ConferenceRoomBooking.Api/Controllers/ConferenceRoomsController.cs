@@ -25,5 +25,21 @@ namespace ConferenceRoomBooking.Api.Controllers
 
             return Ok(id);
         }
-    }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(
+            int id,
+            UpdateConferenceRoomDto dto,
+            CancellationToken ct)
+        {
+            var updated = await _service.UpdateAsync(id, dto, ct);
+
+            if (!updated)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+    }    
 }

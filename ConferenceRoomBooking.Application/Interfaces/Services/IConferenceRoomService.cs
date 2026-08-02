@@ -1,9 +1,4 @@
 ﻿using ConferenceRoomBooking.Application.DTOs.ConferenceRooms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConferenceRoomBooking.Application.Interfaces.Services
 {
@@ -11,6 +6,11 @@ namespace ConferenceRoomBooking.Application.Interfaces.Services
     {
         Task<int> CreateAsync(
             CreateConferenceRoomDto dto,
+            CancellationToken ct = default);
+
+        Task<bool> UpdateAsync(
+            int id,
+            UpdateConferenceRoomDto dto,
             CancellationToken ct = default);
     }
 }

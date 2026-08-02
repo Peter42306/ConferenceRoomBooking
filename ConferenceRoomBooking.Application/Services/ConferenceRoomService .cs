@@ -40,7 +40,9 @@ namespace ConferenceRoomBooking.Application.Services
                 serviceIds,
                 ct);
 
-            if (services.Count != serviceIds.Length)
+            var allServicesExist = services.Count == serviceIds.Length;
+
+            if (!allServicesExist)
             {
                 throw new ArgumentException(
                     "One ore more selected services do not exist.");
@@ -62,5 +64,61 @@ namespace ConferenceRoomBooking.Application.Services
 
             return conferenceRoom.Id;
         }
+
+        public async Task<bool> UpdateAsync(
+            int id,
+            UpdateConferenceRoomDto dto, 
+            CancellationToken ct = default)
+        {
+            var conferenceRoom = await _conferenceRoomRepository.GetByIdWithServicesAsync(id, ct);
+
+            if (conferenceRoom is null)
+            {
+                return false;
+            }
+
+            var nameChanged = conferenceRoom.Name != dto.Name;
+
+            if (nameChanged)
+            {
+                var roomExists = await _conferenceRoomRepository.ExistsByNameAsync(dto.Name, ct);
+
+                if (roomExists)
+                {
+                    throw new InvalidOperationException(
+                        $"Conference roomwith name '{dto.Name}' already exists.");
+                }
+            }           
+
+            var selectedServiceIds = dto.ServiceIds
+                .Distinct()
+                .ToArray();            
+
+            var selectedServices = await _serviceRepository.GetByIdsAsync(selectedServiceIds, ct);
+
+            var allServiceExist = selectedServiceIds.Length == selectedServices.Count;
+
+            if (!allServiceExist)
+            {
+                throw new ArgumentException(
+                    "One or more selected services do not exist.");
+            }
+
+            conferenceRoom.Name = dto.Name;
+            conferenceRoom.Capacity = dto.Capacity;
+            conferenceRoom.RatePerHour = dto.RatePerHour;
+
+            // Replace current services with services selected in the DTO.
+            conferenceRoom.Services.Clear();
+            foreach ( var service in selectedServices)
+            {
+                conferenceRoom.Services.Add(service);
+            }
+
+            await _conferenceRoomRepository.SaveChangesAsync(ct);
+
+            return true;
+        }
+
     }
 }

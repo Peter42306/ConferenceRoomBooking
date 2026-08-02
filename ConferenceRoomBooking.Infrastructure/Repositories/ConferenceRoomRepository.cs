@@ -35,5 +35,14 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync(ct);
         }
+
+        public async Task<ConferenceRoom?> GetByIdWithServicesAsync(
+            int id, 
+            CancellationToken ct = default)
+        {
+            return await _context.ConferenceRooms
+                .Include(room => room.Services)
+                .FirstOrDefaultAsync(room => room.Id == id, ct);
+        }
     }
 }

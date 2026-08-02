@@ -14,5 +14,9 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
 
         Task SaveChangesAsync(
             CancellationToken ct = default);
+
+        Task<ConferenceRoom?> GetByIdWithServicesAsync(
+            int id,
+            CancellationToken ct = default);
     }
 }
