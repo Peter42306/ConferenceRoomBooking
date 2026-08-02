@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Bookings\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
