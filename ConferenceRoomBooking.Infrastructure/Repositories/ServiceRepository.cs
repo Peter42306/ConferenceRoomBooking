@@ -48,5 +48,14 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
         {
             _context.Services.Remove(service);
         }
+
+        public async Task<IReadOnlyCollection<Service>> GetByIdsAsync(
+            IReadOnlyCollection<int> ids, 
+            CancellationToken ct = default)
+        {
+            return await _context.Services
+                .Where(service => ids.Contains(service.Id))
+                .ToListAsync(ct);
+        }
     }
 }

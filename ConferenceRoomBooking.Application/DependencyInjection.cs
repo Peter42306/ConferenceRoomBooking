@@ -11,6 +11,7 @@ namespace ConferenceRoomBooking.Application
             this IServiceCollection services)
         {
             services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IConferenceRoomService, ConferenceRoomService>();
 
             return services;
         }

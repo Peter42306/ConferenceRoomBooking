@@ -21,6 +21,7 @@ namespace ConferenceRoomBooking.Infrastructure
                 options.UseNpgsql(connectionString));
 
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IConferenceRoomRepository, ConferenceRoomRepository>();
 
             return services;
         }
