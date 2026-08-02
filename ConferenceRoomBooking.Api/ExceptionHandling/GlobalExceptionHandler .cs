@@ -51,7 +51,7 @@ namespace ConferenceRoomBooking.Api.ExceptionHandling
                         Title = "Bad Request",
                         Detail = exception.Message
                     };
-                    break;                
+                    break;                                                
 
                 default:
                     problemDetails = new ProblemDetails
