@@ -55,5 +55,15 @@ namespace ConferenceRoomBooking.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<IReadOnlyCollection<AvailableConferenceRoomDto>>> SearchAvailable(
+            SearchAvailableConferenceRoomsDto dto,
+            CancellationToken ct)
+        {
+            var rooms = await _service.SearchAvailableAsync(dto, ct);
+
+            return Ok(rooms);
+        }
     }    
 }

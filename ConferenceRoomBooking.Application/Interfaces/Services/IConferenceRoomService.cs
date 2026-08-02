@@ -16,5 +16,9 @@ namespace ConferenceRoomBooking.Application.Interfaces.Services
         Task<bool> DeleteAsync(
             int id,
             CancellationToken ct = default);
+
+        Task<IReadOnlyCollection<AvailableConferenceRoomDto>> SearchAvailableAsync(
+            SearchAvailableConferenceRoomsDto dto,
+            CancellationToken ct = default);
     }
 }

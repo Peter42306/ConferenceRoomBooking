@@ -57,5 +57,19 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
         {
             _context.ConferenceRooms.Remove(conferenceRoom);
         }
+
+        public async Task<IReadOnlyCollection<ConferenceRoom>> SearchAvailableAsync(
+            DateTime startTime, 
+            DateTime endTime, 
+            int capacity, 
+            CancellationToken ct = default)
+        {
+            return await _context.ConferenceRooms
+                .AsNoTracking()
+                .Where(room => room.Capacity >= capacity)
+                .Where(room => !room.Bookings.Any(booking => booking.StartTime < endTime && booking.EndTime > startTime))
+                .OrderBy(room => room.Capacity)
+                .ToListAsync(ct);
+        }
     }
 }

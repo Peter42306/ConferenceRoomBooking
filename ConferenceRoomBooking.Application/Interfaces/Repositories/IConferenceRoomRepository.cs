@@ -24,5 +24,11 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
             CancellationToken ct = default);
 
         void Remove(ConferenceRoom conferenceRoom);
+
+        Task<IReadOnlyCollection<ConferenceRoom>> SearchAvailableAsync(
+            DateTime startTime,
+            DateTime endTime,
+            int capacity,
+            CancellationToken ct = default);
     }
 }

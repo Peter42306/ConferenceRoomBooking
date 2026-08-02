@@ -139,5 +139,42 @@ namespace ConferenceRoomBooking.Application.Services
             return true;
         }
 
+        public async Task<IReadOnlyCollection<AvailableConferenceRoomDto>> SearchAvailableAsync(
+            SearchAvailableConferenceRoomsDto dto, 
+            CancellationToken ct = default)
+        {
+            // Compare time using UTC. Client applications should
+            // convert local time to UTC before sending requests.
+            if (dto.StartTime < DateTime.UtcNow)
+            {
+                throw new ArgumentException(
+                    "Start time cannot be in the past.");
+            }
+
+            if (dto.EndTime <= dto.StartTime)
+            {
+                throw new ArgumentException(
+                    "End time must be later than start time.");
+            }
+
+            if (dto.Capacity <= 0)
+            {
+                throw new ArgumentException(
+                    "Capacity must be greater than zero.");
+            }
+
+            var rooms = await _conferenceRoomRepository.SearchAvailableAsync(
+                dto.StartTime,
+                dto.EndTime,
+                dto.Capacity,
+                ct);
+
+            return rooms.Select(room => new AvailableConferenceRoomDto(
+                room.Id,
+                room.Name,
+                room.Capacity,
+                room.RatePerHour))
+                .ToList();
+        }
     }
 }
