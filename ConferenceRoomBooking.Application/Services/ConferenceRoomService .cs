@@ -65,6 +65,7 @@ namespace ConferenceRoomBooking.Application.Services
             return conferenceRoom.Id;
         }
 
+        
         public async Task<bool> UpdateAsync(
             int id,
             UpdateConferenceRoomDto dto, 
@@ -86,7 +87,7 @@ namespace ConferenceRoomBooking.Application.Services
                 if (roomExists)
                 {
                     throw new InvalidOperationException(
-                        $"Conference roomwith name '{dto.Name}' already exists.");
+                        $"Conference room with name '{dto.Name}' already exists.");
                 }
             }           
 
@@ -110,10 +111,28 @@ namespace ConferenceRoomBooking.Application.Services
 
             // Replace current services with services selected in the DTO.
             conferenceRoom.Services.Clear();
-            foreach ( var service in selectedServices)
+            foreach (var service in selectedServices)
             {
                 conferenceRoom.Services.Add(service);
             }
+
+            await _conferenceRoomRepository.SaveChangesAsync(ct);
+
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(
+            int id, 
+            CancellationToken ct = default)
+        {            
+            var conferenceRoom = await _conferenceRoomRepository.GetByIdAsync(id, ct);
+
+            if (conferenceRoom is null)
+            {
+                return false;
+            }
+
+            _conferenceRoomRepository.Remove(conferenceRoom);
 
             await _conferenceRoomRepository.SaveChangesAsync(ct);
 

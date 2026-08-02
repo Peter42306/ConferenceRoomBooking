@@ -44,5 +44,18 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
                 .Include(room => room.Services)
                 .FirstOrDefaultAsync(room => room.Id == id, ct);
         }
+
+        public async Task<ConferenceRoom?> GetByIdAsync(
+            int id, 
+            CancellationToken ct = default)
+        {
+            return await _context.ConferenceRooms
+                .FirstOrDefaultAsync(room => room.Id == id, ct);
+        }
+
+        public void Remove(ConferenceRoom conferenceRoom)
+        {
+            _context.ConferenceRooms.Remove(conferenceRoom);
+        }
     }
 }

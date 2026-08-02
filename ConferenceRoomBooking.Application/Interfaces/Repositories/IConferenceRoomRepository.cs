@@ -18,5 +18,11 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
         Task<ConferenceRoom?> GetByIdWithServicesAsync(
             int id,
             CancellationToken ct = default);
+
+        Task<ConferenceRoom?> GetByIdAsync(
+            int id,
+            CancellationToken ct = default);
+
+        void Remove(ConferenceRoom conferenceRoom);
     }
 }

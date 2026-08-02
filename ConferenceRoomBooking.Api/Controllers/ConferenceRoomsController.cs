@@ -1,6 +1,5 @@
 ﻿using ConferenceRoomBooking.Application.DTOs.ConferenceRooms;
 using ConferenceRoomBooking.Application.Interfaces.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConferenceRoomBooking.Api.Controllers
@@ -35,6 +34,21 @@ namespace ConferenceRoomBooking.Api.Controllers
             var updated = await _service.UpdateAsync(id, dto, ct);
 
             if (!updated)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(
+            int id,
+            CancellationToken ct)
+        {
+            var deleted = await _service.DeleteAsync(id, ct);
+
+            if (!deleted)
             {
                 return NotFound();
             }

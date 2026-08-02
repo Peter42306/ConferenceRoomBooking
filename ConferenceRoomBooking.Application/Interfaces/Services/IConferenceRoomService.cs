@@ -12,5 +12,9 @@ namespace ConferenceRoomBooking.Application.Interfaces.Services
             int id,
             UpdateConferenceRoomDto dto,
             CancellationToken ct = default);
+
+        Task<bool> DeleteAsync(
+            int id,
+            CancellationToken ct = default);
     }
 }
