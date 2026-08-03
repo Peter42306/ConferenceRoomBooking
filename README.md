@@ -18,7 +18,8 @@ The application allows administrators to create and manage conference rooms and 
 
 ## Screenshots
 
-<img width="1060" height="1543" alt="Swagger demo" src="https://github.com/user-attachments/assets/6b5be6f7-b44b-4a1c-8f02-ddae63366e79" />
+<img width="1080" height="1920" alt="Swagger demo" src="https://github.com/user-attachments/assets/9ea59d7b-672a-4d54-a00c-4a4393b1eb38" />
+
 
 
 ## Project Structure
@@ -143,13 +144,16 @@ PostgreSQL
 
 | Method | Endpoint | Description |
 |---|---|---|
+| GET | /api/services | Get all additional services |
 | POST | /api/services | Create an additional service |
 | PUT | /api/services/{id} | Update a service |
 | DELETE | /api/services/{id} | Delete a service |
+| GET | /api/conference-rooms | Get all conference rooms with available services |
 | POST | /api/conference-rooms | Create a conference room |
 | PUT | /api/conference-rooms/{id} | Update a conference room |
 | DELETE | /api/conference-rooms/{id} | Delete a conference room |
 | POST | /api/conference-rooms/search | Search available conference rooms |
+| GET | /api/bookings | Get all bookings with room, services, status, and price details |
 | POST | /api/bookings | Create a booking and calculate its price |
 
 ## Business Rules
