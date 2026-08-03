@@ -172,5 +172,31 @@ namespace ConferenceRoomBooking.Application.Services
             throw new ArgumentException(
                 "Bookings are allowed only between 06:00 and 23:00.");
         }
+
+        public async Task<IReadOnlyCollection<BookingDto>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            var bookings = await _bookingRepository.GetAllAsync(ct);
+
+            return bookings
+                .Select(booking => new BookingDto(
+                    booking.Id,
+                    booking.ConferenceRoomId,
+                    booking.ConferenceRoom.Name,
+                    booking.StartTime,
+                    booking.EndTime,
+                    booking.Status,
+                    booking.RentalPrice,
+                    booking.ServicesPrice,
+                    booking.TotalPrice,
+                    booking.BookingServices
+                        .OrderBy(bookingService => bookingService.Service.Name)
+                        .Select(bookingService => new BookingServiceDto(
+                            bookingService.ServiceId,
+                            bookingService.Service.Name,
+                            bookingService.Price))
+                        .ToList()))
+                .ToList();
+        }
     }
 }

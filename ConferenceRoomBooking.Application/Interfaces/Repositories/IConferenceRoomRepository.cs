@@ -30,5 +30,8 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
             DateTime endTime,
             int capacity,
             CancellationToken ct = default);
+
+        Task<IReadOnlyCollection<ConferenceRoom>> GetAllWithServicesAsync(
+            CancellationToken ct = default);
     }
 }

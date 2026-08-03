@@ -2,6 +2,7 @@
 using ConferenceRoomBooking.Application.Interfaces.Repositories;
 using ConferenceRoomBooking.Application.Interfaces.Services;
 using ConferenceRoomBooking.Domain.Entities;
+using ConferenceRoomBooking.Application.DTOs.Services;
 
 namespace ConferenceRoomBooking.Application.Services
 {
@@ -174,6 +175,27 @@ namespace ConferenceRoomBooking.Application.Services
                 room.Name,
                 room.Capacity,
                 room.RatePerHour))
+                .ToList();
+        }
+
+        public async Task<IReadOnlyCollection<ConferenceRoomDto>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            var rooms = await _conferenceRoomRepository.GetAllWithServicesAsync(ct);
+
+            return rooms
+                .Select(room => new ConferenceRoomDto(
+                    room.Id,
+                    room.Name,
+                    room.Capacity,
+                    room.RatePerHour,
+                    room.Services
+                        .OrderBy(service => service.Name)
+                        .Select(service => new ServiceDto(
+                            service.Id,
+                            service.Name,
+                            service.Price))
+                        .ToList()))
                 .ToList();
         }
     }

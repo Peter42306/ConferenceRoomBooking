@@ -24,5 +24,8 @@ namespace ConferenceRoomBooking.Application.Interfaces.Repositories
         Task<IReadOnlyCollection<Service>> GetByIdsAsync(
             IReadOnlyCollection<int> ids,
             CancellationToken ct = default);
+
+        Task<IReadOnlyCollection<Service>> GetAllAsync(
+            CancellationToken ct = default);
     }
 }

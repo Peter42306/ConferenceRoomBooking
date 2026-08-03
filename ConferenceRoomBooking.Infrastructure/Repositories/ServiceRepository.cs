@@ -57,5 +57,13 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
                 .Where(service => ids.Contains(service.Id))
                 .ToListAsync(ct);
         }
+
+        public async Task<IReadOnlyCollection<Service>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            return await _context.Services
+                .OrderBy(service => service.Name)
+                .ToListAsync(ct);
+        }
     }
 }

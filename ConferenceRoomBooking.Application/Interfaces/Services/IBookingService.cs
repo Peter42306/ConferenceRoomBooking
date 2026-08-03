@@ -7,5 +7,8 @@ namespace ConferenceRoomBooking.Application.Interfaces.Services
         Task<BookingResultDto> CreateAsync(
             CreateBookingDto dto,
             CancellationToken ct = default);
-    }
+
+        Task<IReadOnlyCollection<BookingDto>> GetAllAsync(
+            CancellationToken ct = default);
+    }    
 }

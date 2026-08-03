@@ -71,5 +71,15 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
                 .OrderBy(room => room.Capacity)
                 .ToListAsync(ct);
         }
+
+        public async Task<IReadOnlyCollection<ConferenceRoom>> GetAllWithServicesAsync(
+            CancellationToken ct = default)
+        {
+            return await _context.ConferenceRooms
+                .AsNoTracking()
+                .Include(room => room.Services)
+                .OrderBy(room => room.Name)
+                .ToListAsync(ct);
+        }
     }
 }

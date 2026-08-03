@@ -40,5 +40,17 @@ namespace ConferenceRoomBooking.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync(ct);
         }
+
+        public async Task<IReadOnlyCollection<Booking>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            return await _context.Bookings
+                .AsNoTracking()
+                .Include(booking => booking.ConferenceRoom)
+                .Include(booking => booking.BookingServices)
+                    .ThenInclude(bookingService => bookingService.Service)
+                .OrderByDescending(booking => booking.StartTime)
+                .ToListAsync();
+        }
     }
 }

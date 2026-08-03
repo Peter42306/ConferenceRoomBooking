@@ -20,5 +20,8 @@ namespace ConferenceRoomBooking.Application.Interfaces.Services
         Task<IReadOnlyCollection<AvailableConferenceRoomDto>> SearchAvailableAsync(
             SearchAvailableConferenceRoomsDto dto,
             CancellationToken ct = default);
+
+        Task<IReadOnlyCollection<ConferenceRoomDto>> GetAllAsync(
+            CancellationToken ct = default);
     }
 }

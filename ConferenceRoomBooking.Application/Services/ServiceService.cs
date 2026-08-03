@@ -90,5 +90,18 @@ namespace ConferenceRoomBooking.Application.Services
 
             return true;
         }
+
+        public async Task<IReadOnlyCollection<ServiceDto>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            var service = await _repository.GetAllAsync(ct);
+
+            return service
+                .Select(service => new ServiceDto(
+                    service.Id,
+                    service.Name,
+                    service.Price))
+                .ToList();
+        }
     }
 }

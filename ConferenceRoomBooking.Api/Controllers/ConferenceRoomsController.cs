@@ -65,5 +65,14 @@ namespace ConferenceRoomBooking.Api.Controllers
 
             return Ok(rooms);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyCollection<ConferenceRoomDto>>> GetAll(
+            CancellationToken ct)
+        {
+            var rooms = await _service.GetAllAsync(ct);
+
+            return Ok(rooms);
+        }
     }    
 }
